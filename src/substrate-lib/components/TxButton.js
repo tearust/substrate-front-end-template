@@ -120,9 +120,10 @@ function TxButton ({
     setUnsub(() => unsub);
   };
 
-  const queryResHandler = result =>
-    result.isNone ? setStatus('None') : setStatus(result.toString());
-
+  const queryResHandler = result => {
+console.log(11, result.toJSON())
+    result.isNone ? setStatus('None') : setStatus(JSON.stringify(result.toHuman()));
+  }
   const query = async () => {
     const transformed = transformParams(paramFields, inputParams);
     const unsub = await api.query[palletRpc][callable](...transformed, queryResHandler);
