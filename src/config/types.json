@@ -57,5 +57,15 @@
     "status": "Cid"
   },
 
-  "AuctionId": "u32"
+  "AuctionId": "u32",
+  "AuctionItem": {
+    "id": "AuctionId",
+    "cml_id": "AssetId",
+    "cml_owner": "AccountId",
+    "starting_price": "Balance",
+    "buy_now_price": "Option<Balance>",
+    "start_at": "BlockNumber",
+    "end_at": "BlockNumber",
+    "status": "Cid"
+  }
 }
