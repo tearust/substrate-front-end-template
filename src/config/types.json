@@ -55,5 +55,7 @@
     "group": "Cid",
     "ip": "Cid",
     "status": "Cid"
-  }
+  },
+
+  "AuctionId": "u32"
 }
