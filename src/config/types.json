@@ -32,40 +32,96 @@
     "ephemeralId": "TeaPubKey",
     "updateHeight": "BlockNumber"
   },
-  "StakingItem": {
-    "owner": "AccountId",
-    "category": "Cid",
-    "amount": "u32",
-    "cml": "Option<AssetId>"
-  },
-  "Dai": "u32",
-  "CML": {
-    "id": "AssetId",
-    "group": "Cid",
-    "status": "Cid",
-    "life_time": "BlockNumber",
-    "lock_time": "BlockNumber",
-    "mining_rate": "u8",
-    "staking_slot": "Vec<StakingItem>",
-    "created_at": "BlockNumber",
-    "miner_id": "Cid"
-  },
-  "MinerItem": {
-    "id": "Cid",
-    "group": "Cid",
-    "ip": "Cid",
-    "status": "Cid"
+
+  "CmlType": {
+    "_enum": ["A", "B", "C"]
   },
 
-  "AuctionId": "u32",
+  "Voucher": {
+    "amount": "u32",
+    "cml_type": "CmlType"
+  },
+
+  "CmlId": "u64",
+  "CmlStatus": {
+    "_enum": ["SeedLive", "SeedFrozen", "CmlLive", "Staking", "Dead"]
+  },
+  "MinerStatus": {
+    "_enum": ["Active", "Offline"]
+  },
+  "CmlGroup": {
+    "_enum": ["Nitro", "Tpm"]
+  },
+  "StakingCategory": {
+    "_enum": ["Tea", "Cml"]
+  },
+
+  "StakingItem": {
+    "owner": "AccountId",
+    "category": "StakingCategory",
+    "amount": "Option<Balance>",
+    "cml": "Option<CmlId>"
+  },
+
+  "MachineId": "u32",
+  "MinerItem": {
+    "id": "MachineId",
+    "ip": "Cid",
+    "status": "MinerStatus"
+  },
+
+  "DefrostScheduleType": {
+    "_enum": ["Investor", "Team"]
+  },
+
+  "Seed": {
+    "id": "CmlId",
+    "cml_type": "CmlType",
+    "defrost_schedule": "DefrostScheduleType",
+    "generate_defrost_time": "BlockNumber",
+    "lifespan": "BlockNumber",
+    "performance": "u32"
+  },
+
+  "CML": {
+    "intrinsic": "Seed",
+    "group": "CmlGroup",
+    "status": "CmlStatus",
+    "mining_rate": "u8",
+    "staking_slot": "Vec<StakingItem>",
+    "planted_at": "BlockNumber",
+    "machine_id": "Option<MachineId>"
+  },
+  
+  "AuctionId": "u64",
   "AuctionItem": {
     "id": "AuctionId",
-    "cml_id": "AssetId",
+    "cml_id": "CmlId",
     "cml_owner": "AccountId",
     "starting_price": "Balance",
     "buy_now_price": "Option<Balance>",
     "start_at": "BlockNumber",
     "end_at": "BlockNumber",
-    "status": "Cid"
-  }
+    "status": "Cid",
+    "bid_user": "Option<AccountId>"
+  },
+  "BidItem": {
+    "auction_id": "AuctionId",
+	  "user": "AccountId",
+    "price": "Balance",
+    "deposit": "Option<Balance>",
+	  "created_at": "BlockNumber",
+	  "updated_at": "BlockNumber"
+  },
+
+  "chainbridge::ChainId": "u8",
+  "ChainId": "u8",
+  "ResourceId": "[u8; 32]",
+  "DepositNonce": "u64",
+  "ProposalVotes": {
+    "votes_for": "Vec<AccountId>",
+    "votes_against": "Vec<AccountId>",
+    "status": "enum"
+  },
+  "TokenId": "U256"
 }
